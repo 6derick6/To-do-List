@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, ImageBackground, TouchableOpacity, ScrollView } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
@@ -9,12 +9,27 @@ export default function App() {
 
   const image = require('./resources/bg.jpg');
 
+  const [tarefas, setTarefas] = useState([
+    {
+      id: 1,
+      tarefa: 'MInha primeira tarefa.'
+    },
+    {
+      id: 2,
+      tarefa: 'MInha segunda tarefa.'
+    }
+  ]);
+
   let [fontsLoaded] = useFonts({
     Inter_900Black,
   });
 
   if (!fontsLoaded) {
     return <AppLoading />;
+  }
+
+  function deletarTarefa(id){
+    
   }
 
   return (
@@ -27,15 +42,21 @@ export default function App() {
           </View>
         </ImageBackground>
 
-        <View style={styles.tarefaSingle}>
-          <View style={{flex:1,width:'100%',padding:10}}> 
-            <Text>Minha tarefa numero 1 para o dia de amanhã</Text>
-          </View>
+        {
+        tarefas.map(function(val){
+         return ( 
+          <View style={styles.tarefaSingle}>
+            <View style={{flex:1,width:'100%',padding:10}}> 
+              <Text>{val.tarefa}</Text>
+            </View>
 
-          <View style={{alignItems:'flex-end',flex:1,padding:10}}>
-            <TouchableOpacity><AntDesign name='minuscircleo' size={24} color='black' /></TouchableOpacity>
-          </View>
-        </View>
+            <View style={{alignItems:'flex-end',flex:1,padding:10}}>
+              <TouchableOpacity onPress={()=> deletarTarefa(val.id)}><AntDesign name='minuscircleo' size={24} color='black' /></TouchableOpacity>
+            </View>
+          </View>);
+        })
+
+        }
 
     </ScrollView>
   );
