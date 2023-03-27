@@ -29,7 +29,11 @@ export default function App() {
   }
 
   function deletarTarefa(id){
-    
+    let newTarefas = tarefas.filter(function(val){
+      return val.id != id;
+    });
+
+    setTarefas(newTarefas);
   }
 
   return (
