@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { AppLoading } from 'expo';
 import { AntDesign } from '@expo/vector-icons'; 
 import { useFonts, Lato_400Regular } from '@expo-google-fonts/lato';
-import { StyleSheet, Text, View, ImageBackground, TouchableOpacity,TouchableHighlight ,Modal ,ScrollView, TextInput } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, TouchableOpacity,TouchableHighlight ,Modal ,ScrollView, TextInput, Alert } from 'react-native';
 
 export default function App() {
 
@@ -34,33 +34,30 @@ export default function App() {
     Lato_400Regular,
   });
 
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  }
+  // if (!fontsLoaded) {
+  //   return <AppLoading />;
+  // }
 
   function deletarTarefa(id){
-      alert('Tarefa com id '+id+' foi deletada com sucesso!');
+      Alert.alert('Tarefa com id '+id+' foi deletada com sucesso!');
       //TODO: Deletar do array/estado a tarefa com id especificado!
       let newTarefas = tarefas.filter(function(val){
             return val.id != id;
       });
-
       setarTarefas(newTarefas);
   }
 
-  function addTarefa(){
+  function addTarefa() {
+    setModal(!modal);
 
-      setModal(!modal);
+    let id = 0;
+    if(tarefas.length > 0){
+      id = tarefas[tarefas.length-1].id + 1;
+    }
 
-      let id = 0;
-      if(tarefas.length > 0){
-        id = tarefas[tarefas.length-1].id + 1;
-      }
+    let tarefa = {id:id,tarefa:tarefaAtual};
 
-      let tarefa = {id:id,tarefa:tarefaAtual};
-
-      setarTarefas([...tarefas,tarefa]);
-
+    setarTarefas([...tarefas,tarefa]);
   }
 
   return (
@@ -88,7 +85,6 @@ export default function App() {
           </View>
         </View>
       </Modal>
-
       
 
         <ImageBackground source={image} style={styles.image}>
@@ -100,8 +96,8 @@ export default function App() {
       
 
         {
-        tarefas.map(function(val){
-          return (<View style={styles.tarefaSingle}>
+        tarefas.map(function(val, index){
+          return (<View style={styles.tarefaSingle} key={index}>
             <View style={{flex:1,width:'100%',padding:10}}>
                 <Text>{val.tarefa}</Text>
             </View>
