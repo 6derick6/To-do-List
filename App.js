@@ -22,8 +22,6 @@ export default function App() {
     Lato_400Regular,
   });
 
-<<<<<<< HEAD
-=======
   useEffect(()=>{
 
     (async () => {
@@ -43,7 +41,6 @@ export default function App() {
     
   
 
->>>>>>> d037208 (App lista de tarefa extra #3)
   // if (!fontsLoaded) {
   //   return <AppLoading />;
   // }
@@ -77,8 +74,6 @@ export default function App() {
     let tarefa = {id:id,tarefa:tarefaAtual};
 
     setarTarefas([...tarefas,tarefa]);
-<<<<<<< HEAD
-=======
 
 
     (async () => {
@@ -88,7 +83,6 @@ export default function App() {
         
       }
     })();
->>>>>>> d037208 (App lista de tarefa extra #3)
   }
 
   return (
