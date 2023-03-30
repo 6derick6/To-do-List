@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { AsyncStorage } from 'react-native';
 import { AppLoading } from 'expo';
 import { AntDesign } from '@expo/vector-icons'; 
 import { useFonts, Lato_400Regular } from '@expo-google-fonts/lato';
@@ -11,20 +12,7 @@ export default function App() {
 
   console.disableYellowBox = true;
 
-  const [tarefas, setarTarefas] = useState([
-    {
-        id: 1,
-        tarefa: 'Minha tarefa 1.'
-    },
-    {
-      id: 2,
-      tarefa: 'minha outra tarefa..'
-    },
-    {
-      id: 3,
-      tarefa: 'minha outra tarefa 3..'
-    }
-]);
+  const [tarefas, setarTarefas] = useState([]);
 
   const [modal,setModal] = useState(false);
 
@@ -34,6 +22,28 @@ export default function App() {
     Lato_400Regular,
   });
 
+<<<<<<< HEAD
+=======
+  useEffect(()=>{
+
+    (async () => {
+      try {
+        let tarefasAtual = await AsyncStorage.getItem('tarefas');
+        if(tarefasAtual == null)
+          setarTarefas([]);
+        else
+          setarTarefas(JSON.parse(tarefaAtual));  
+      } catch (error) {
+
+      }
+    })();
+
+  },[])
+
+    
+  
+
+>>>>>>> d037208 (App lista de tarefa extra #3)
   // if (!fontsLoaded) {
   //   return <AppLoading />;
   // }
@@ -45,6 +55,15 @@ export default function App() {
             return val.id != id;
       });
       setarTarefas(newTarefas);
+
+      (async () => {
+        try {
+          await AsyncStorage.setItem('tarefas',JSON.stringify(newTarefas));
+          
+        } catch (error) {
+
+        }
+      })();
   }
 
   function addTarefa() {
@@ -58,6 +77,18 @@ export default function App() {
     let tarefa = {id:id,tarefa:tarefaAtual};
 
     setarTarefas([...tarefas,tarefa]);
+<<<<<<< HEAD
+=======
+
+
+    (async () => {
+      try {
+        await AsyncStorage.setItem('tarefas', JSON.stringify([...tarefas,tarefa]));
+      } catch (error) {
+        
+      }
+    })();
+>>>>>>> d037208 (App lista de tarefa extra #3)
   }
 
   return (
@@ -89,7 +120,7 @@ export default function App() {
 
         <ImageBackground source={image} style={styles.image}>
           <View style={styles.coverView}>
-            <Text style={styles.textHeader}>Lista de Tarefas - Danki Code</Text>
+            <Text style={styles.textHeader}>To Do-List</Text>
             </View>
         </ImageBackground>
 
