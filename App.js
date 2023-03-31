@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { AsyncStorage } from 'react-native';
 import { AppLoading } from 'expo';
 import { AntDesign } from '@expo/vector-icons'; 
-import { useFonts, Lato_400Regular } from '@expo-google-fonts/lato';
 import { StyleSheet, Text, View, ImageBackground, TouchableOpacity,TouchableHighlight ,Modal ,ScrollView, TextInput, Alert } from 'react-native';
 
 export default function App() {
@@ -17,10 +16,6 @@ export default function App() {
   const [modal,setModal] = useState(false);
 
   const [tarefaAtual, setTarefaAtual] = useState('');
- 
-  let [fontsLoaded] = useFonts({
-    Lato_400Regular,
-  });
 
   useEffect(()=>{
 
@@ -155,7 +150,8 @@ const styles = StyleSheet.create({
     width:200,
     padding:8,
     backgroundColor:'gray',
-    marginTop:20
+    marginTop:20,
+    margin:'25%'
   },
   coverView:{
     width:'100%',
@@ -166,8 +162,7 @@ const styles = StyleSheet.create({
     textAlign:'center',
     color:'white',
     fontSize:20,
-    marginTop:30,
-    fontFamily:'Lato_400Regular'
+    marginTop:30
   },
   tarefaSingle:{
       marginTop:30,
